@@ -1,0 +1,6 @@
+*.o
+*~
+/oracle/connect-by-Logon
+/oracle/connect-by-Logon2
+/oracle/connect-by-ServerAttach-and-SessionBegin
+/oracle/connect-by-SessionGet
