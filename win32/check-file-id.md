@@ -1,6 +1,6 @@
 As far as I checked, lower 64-bit of 128-bit file identifiers retrieved by
 [GetFileInformationByHandleEx][](FileIdInfo) are same with
-the the 64-bit file identifiers retrieved by [GetFileInformationByHandle][]()
+the 64-bit file identifiers retrieved by [GetFileInformationByHandle][]()
 
 [GetFileInformationByHandleEx]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa364953(v=vs.85).aspx
 [GetFileInformationByHandle]: https://msdn.microsoft.com/en-us/library/windows/desktop/aa364952(v=vs.85).aspx
