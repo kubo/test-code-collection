@@ -1,6 +1,6 @@
 /* -*- c-basic-offset: 4; indent-tabs-mode: nil -*- */
-#ifndef TEST_ORACLE_H
-#define TEST_ORACLE_H 1
+#ifndef UTIL_H
+#define UTIL_H 1
 
 #include <oci.h>
 
@@ -9,10 +9,12 @@ extern OCIEnv *g_envhp;
 #define chk_env(func, envhp) check_error(func, #func, envhp, OCI_HTYPE_ENV)
 #define chk(func, errhp) check_error(func, #func, errhp, OCI_HTYPE_ERROR)
 
+#define SUCCESS(rv) ((rv) == OCI_SUCCESS || (rv) == OCI_SUCCESS_WITH_INFO)
+
 /* error on return */
 #define CHK_ENV(func, envhp) do { \
     sword rv__ = check_error(func, #func, envhp, OCI_HTYPE_ENV); \
-    if (rv__ != OCI_SUCCESS && rv__ != OCI_SUCCESS_WITH_INFO) { \
+    if (!SUCCESS(rv__)) { \
         return rv__; \
     } \
 } while (0)
@@ -20,23 +22,18 @@ extern OCIEnv *g_envhp;
 /* error on return */
 #define CHK(func, errhp) do { \
     sword rv__ = check_error(func, #func, errhp, OCI_HTYPE_ERROR); \
-    if (rv__ != OCI_SUCCESS && rv__ != OCI_SUCCESS_WITH_INFO) { \
+    if (!SUCCESS(rv__)) { \
         return rv__; \
     } \
 } while (0)
 
 typedef struct {
-    OCIError *errhp;
-    OCISvcCtx *svchp;
-    OCIServer *srvhp;
-    OCISession *usrhp;
-} conn_t;
+    OraText *name;
+    ub4 len;
+} name_t;
 
-/* connect-by-*.c */
-sword oracle_connect(conn_t *conn, const char *username, const char *password, const char *dbname);
-sword oracle_disconnect(conn_t *conn);
-
-/* util.c */
+int check_args(int argc, char **argv, name_t *username, name_t *password, name_t *database);
+sword init_env(void);
 sword check_error(sword result, const char *func, void *hndl, ub4 type);
 
-#endif /* TEST_ORACLE_H */
+#endif /* UTIL_H */

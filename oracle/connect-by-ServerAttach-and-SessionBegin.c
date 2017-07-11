@@ -1,8 +1,7 @@
 /* -*- c-basic-offset: 4; indent-tabs-mode: nil -*- */
-#include <string.h>
-#include "test-oracle.h"
+#include "connect.h"
 
-sword oracle_connect(conn_t *conn, const char *username, const char *password, const char *dbname)
+sword oracle_connect(conn_t *conn, const name_t *username, const name_t *password, const name_t *database)
 {
     CHK_ENV(OCIHandleAlloc(g_envhp, (dvoid*)&conn->errhp, OCI_HTYPE_ERROR, 0, NULL),
             g_envhp);
@@ -13,15 +12,15 @@ sword oracle_connect(conn_t *conn, const char *username, const char *password, c
     CHK_ENV(OCIHandleAlloc(g_envhp, (dvoid*)&conn->usrhp, OCI_HTYPE_SESSION, 0, NULL),
             g_envhp);
 
-    CHK(OCIServerAttach(conn->srvhp, conn->errhp, (OraText*)dbname, strlen(dbname), OCI_DEFAULT),
+    CHK(OCIServerAttach(conn->srvhp, conn->errhp, database->name, database->len, OCI_DEFAULT),
         conn->errhp);
     CHK(OCIAttrSet(conn->svchp, OCI_HTYPE_SVCCTX, conn->srvhp, 0, OCI_ATTR_SERVER, conn->errhp),
         conn->errhp);
 
-    CHK(OCIAttrSet(conn->usrhp, OCI_HTYPE_SESSION, (char*)username, strlen(username),
+    CHK(OCIAttrSet(conn->usrhp, OCI_HTYPE_SESSION, username->name, username->len,
                    OCI_ATTR_USERNAME, conn->errhp),
         conn->errhp);
-    CHK(OCIAttrSet(conn->usrhp, OCI_HTYPE_SESSION, (char*)password, strlen(password),
+    CHK(OCIAttrSet(conn->usrhp, OCI_HTYPE_SESSION, password->name, password->len,
                    OCI_ATTR_PASSWORD, conn->errhp),
         conn->errhp);
 #ifdef OCI_ATTR_DRIVER_NAME

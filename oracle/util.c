@@ -1,7 +1,37 @@
 /* -*- c-basic-offset: 4; indent-tabs-mode: nil -*- */
 #include <stdio.h>
 #include <string.h>
-#include "test-oracle.h"
+#include "util.h"
+
+OCIEnv *g_envhp;
+
+int check_args(int argc, char **argv, name_t *username, name_t *password, name_t *database)
+{
+    if (argc != 2 && argc != 3) {
+        return -1;
+    }
+    username->name = (OraText*)argv[0];
+    username->len = strlen(argv[0]);
+    password->name = (OraText*)argv[1];
+    password->len = strlen(argv[1]);
+    if (argc > 2) {
+        database->name = (OraText*)argv[2];
+        database->len = strlen(argv[2]);
+    } else {
+        database->name = NULL;
+        database->len = 0;
+    }
+    return 0;
+}
+
+sword init_env(void)
+{
+    sword rv;
+
+    rv = OCIEnvCreate(&g_envhp, OCI_DEFAULT, NULL, NULL, NULL, NULL, 0, NULL);
+    check_error(rv, "OCIEnvCreate", g_envhp, OCI_HTYPE_ENV);
+    return rv;
+}
 
 sword check_error(sword result, const char *func, void *hndl, ub4 type)
 {

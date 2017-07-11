@@ -1,9 +1,7 @@
 /* -*- c-basic-offset: 4; indent-tabs-mode: nil -*- */
-#include <stdio.h>
-#include <string.h>
-#include "test-oracle.h"
+#include "connect.h"
 
-sword oracle_connect(conn_t *conn, const char *username, const char *password, const char *dbname)
+sword oracle_connect(conn_t *conn, const name_t *username, const name_t *password, const name_t *database)
 {
     OCIAuthInfo *authhp;
     CHK_ENV(OCIHandleAlloc(g_envhp, (dvoid*)&conn->errhp, OCI_HTYPE_ERROR, 0, NULL),
@@ -11,10 +9,10 @@ sword oracle_connect(conn_t *conn, const char *username, const char *password, c
 
     CHK_ENV(OCIHandleAlloc(g_envhp, (dvoid*)&authhp, OCI_HTYPE_AUTHINFO, 0, NULL),
             g_envhp);
-    CHK(OCIAttrSet(authhp, OCI_HTYPE_AUTHINFO, (char*)username, strlen(username),
+    CHK(OCIAttrSet(authhp, OCI_HTYPE_AUTHINFO, username->name, username->len,
                    OCI_ATTR_USERNAME, conn->errhp),
         conn->errhp);
-    CHK(OCIAttrSet(authhp, OCI_HTYPE_AUTHINFO, (char*)password, strlen(password),
+    CHK(OCIAttrSet(authhp, OCI_HTYPE_AUTHINFO, password->name, password->len,
                    OCI_ATTR_PASSWORD, conn->errhp),
         conn->errhp);
 #ifdef OCI_ATTR_DRIVER_NAME
@@ -24,7 +22,7 @@ sword oracle_connect(conn_t *conn, const char *username, const char *password, c
 #endif
 
     CHK(OCISessionGet(g_envhp, conn->errhp, &conn->svchp, authhp, 
-                      (OraText *)dbname, strlen(dbname),
+                      database->name, database->len,
                       NULL, 0, NULL, NULL, NULL, OCI_DEFAULT),
         conn->errhp);
 

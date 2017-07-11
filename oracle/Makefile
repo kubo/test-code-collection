@@ -23,5 +23,12 @@ connect-by-ServerAttach-and-SessionBegin: connect-main.o util.o connect-by-Serve
 connect-by-SessionGet: connect-main.o util.o connect-by-SessionGet.o
 	$(CC) -o $@ $^ $(LIBS)
 
+connect-by-Logon.o: connect-by-Logon.c connect.h util.h
+connect-by-Logon2.o: connect-by-Logon2.c connect.h util.h
+connect-by-ServerAttach-and-SessionBegin.o: connect-by-ServerAttach-and-SessionBegin.c connect.h util.h
+connect-by-SessionGet.o: connect-by-SessionGet.c connect.h util.h
+connect-main.o: connect-main.c connect.h util.h
+util.o: util.c util.h
+
 clean:
 	$(RM) $(PROGS) *.o

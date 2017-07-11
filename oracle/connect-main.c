@@ -1,38 +1,26 @@
 /* -*- c-basic-offset: 4; indent-tabs-mode: nil -*- */
 #include <stdio.h>
 #include <stdlib.h>
-#include "test-oracle.h"
-
-OCIEnv *g_envhp;
+#include "connect.h"
 
 int main(int argc, char **argv)
 {
-    const char *username;
-    const char *password;
-    const char *database = "";
+    name_t username;
+    name_t password;
+    name_t database;
     conn_t conn;
-    sword rv;
 
-    switch (argc) {
-    case 4:
-        database = argv[3];
-    case 3:
-        password = argv[2];
-        username = argv[1];
-        break;
-    default:
+    if (check_args(argc - 1, argv + 1, &username, &password, &database) != 0) {
         fprintf(stderr, "Usage: %s username password [database]\n", argv[0]);
         return 1;
     }
 
-    rv = OCIEnvCreate(&g_envhp, OCI_DEFAULT, NULL, NULL, NULL, NULL, 0, NULL);
-    check_error(rv, "OCIEnvCreate", g_envhp, OCI_HTYPE_ENV);
-    if (rv != 0) {
-        exit(1);
+    if (init_env() != 0) {
+        return 1;
     }
 
     printf("Connecting to Oracle\n");
-    if (oracle_connect(&conn, username, password, database) != 0) {
+    if (oracle_connect(&conn, &username, &password, &database) != 0) {
         printf("failed\n");
         return 1;
     }
