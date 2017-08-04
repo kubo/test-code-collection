@@ -1,6 +1,10 @@
 /* -*- c-basic-offset: 4; indent-tabs-mode: nil -*- */
 #include <stdio.h>
+#include <stdarg.h>
 #include <string.h>
+#ifdef _WIN32
+#include <io.h>
+#endif
 #include "util.h"
 
 OCIEnv *g_envhp;
@@ -41,8 +45,8 @@ sword check_error(sword result, const char *func, void *hndl, ub4 type)
     switch (result) {
     case OCI_SUCCESS:
     case OCI_SUCCESS_WITH_INFO:
-        strcpy(msg, "Success");
-        break;
+        green_message("%s => %d (Success)", func, result);
+        return result;
     case OCI_NO_DATA:
     case OCI_ERROR:
         OCIErrorGet(hndl, 1, NULL, &code, (OraText*)msg, sizeof(msg), type);
@@ -58,6 +62,94 @@ sword check_error(sword result, const char *func, void *hndl, ub4 type)
         sprintf(msg, "Unknown error code %d", result);
         break;
     }
-    fprintf(stderr, "%s => %d (%s)\n", func, result, msg);
+    red_message("%s => %d (%s)", func, result, msg);
     return result;
+}
+
+#ifdef _WIN32
+#define COLOR_DEFAULT  (0xFFFF)
+#define COLOR_GREEN    (FOREGROUND_GREEN | FOREGROUND_INTENSITY)
+#define COLOR_RED      (FOREGROUND_RED | FOREGROUND_INTENSITY)
+static int vmessage(WORD color, const char *format, va_list ap)
+{
+#if 0 /* not testted */
+    HANDLE hConsole = NULL;
+    WORD oldcolor = (WORD)-1;
+    int rv;
+
+    if (color != COLOR_DEFAULT && _isatty(_fileno(stdout))) {
+        hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+        if (hConsole != NULL) {
+            CONSOLE_SCREEN_BUFFER_INFO csbi;
+            if (GetConsoleScreenBufferInfo(hConsole, &csbi)) {
+                oldcolor = csbi.wAttributes;
+            }
+        }
+    }
+
+    if (oldcolor != (WORD)-1) {
+        SetConsoleTextAttribute(hConsole, color);
+    }
+#endif
+    rv = vprintf(format, ap);
+    fflush(stdout);
+#if 0 /* not testted */
+    if (oldcolor != (WORD)-1) {
+        SetConsoleTextAttribute(hConsole, oldcolor);
+    }
+#endif
+    putchar('\n');
+    return rv;
+}
+#else
+#define COLOR_DEFAULT   NULL
+#define COLOR_GREEN     "32"
+#define COLOR_RED       "31"
+static int vmessage(const char *color, const char *format, va_list ap)
+{
+    int rv;
+
+    if (color != COLOR_DEFAULT) {
+        printf("\033[%sm", color);
+    }
+    rv = vprintf(format, ap);
+    if (color != COLOR_DEFAULT) {
+        printf("\033[0m");
+    }
+    putchar('\n');
+    return rv;
+}
+#endif
+
+int message(const char *format, ...)
+{
+    va_list ap;
+    int rv;
+
+    va_start(ap, format);
+    rv = vmessage(COLOR_DEFAULT, format, ap);
+    va_end(ap);
+    return rv;
+}
+
+int green_message(const char *format, ...)
+{
+    va_list ap;
+    int rv;
+
+    va_start(ap, format);
+    rv = vmessage(COLOR_GREEN, format, ap);
+    va_end(ap);
+    return rv;
+}
+
+int red_message(const char *format, ...)
+{
+    va_list ap;
+    int rv;
+
+    va_start(ap, format);
+    rv = vmessage(COLOR_RED, format, ap);
+    va_end(ap);
+    return rv;
 }

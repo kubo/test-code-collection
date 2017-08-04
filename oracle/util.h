@@ -36,4 +36,8 @@ int check_args(int argc, char **argv, name_t *username, name_t *password, name_t
 sword init_env(void);
 sword check_error(sword result, const char *func, void *hndl, ub4 type);
 
+int message(const char *format, ...);
+int green_message(const char *format, ...);
+int red_message(const char *format, ...);
+
 #endif /* UTIL_H */
