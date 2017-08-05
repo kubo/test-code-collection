@@ -345,7 +345,7 @@ EUC-JP byte sequence | EUC-JP | EUC-JIS-2004 | CP51932 | eucJP-ms
 ---|---|---|---|---
 `5C`(&yen;) | U+005C(&#x5C;) | U+005C(&#x5C;) | U+005C(&#x5C;) | U+005C(&#x5C;)
 `A1 C1` | U+301C(&#x301C;) | U+301C(&#x301C;) | U+FF5E(&#xFF5E;) | U+FF5E(&#xFF5E;)
-`8F A2 B7` | U+007E(&#x007E) | Error | Error | U+FF5E(&#xFF5E;)
+`8F A2 B7` | U+007E(&#x007E;) | Error | Error | U+FF5E(&#xFF5E;)
 
 Other bytes sequences were not checked.
 
