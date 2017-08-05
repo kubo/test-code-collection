@@ -1,6 +1,6 @@
 # list of Oracle chracter set names
 
-This list was got by [charset-list.c][charset-list.c] using Oracle instant client 12.2.0.1 on Linux x86_64.
+This list was got by [charset-list.c](charset-list.c) using Oracle instant client 12.2.0.1 on Linux x86_64.
 The first and second columns are the Oracle character set id and name.
 The third column is the IANA character set name got from the second column by OCINlsNameMap() with `OCI_NLS_CS_ORA_TO_IANA` flag.
 The forth column is the Oralce character set name got from the third column by OCINlsNameMap() with `OCI_NLS_CS_IANA_TO_ORA` flag. When the name is same with the second column, it is :+1:. Otherwise, :-1: is prepended.
@@ -354,9 +354,9 @@ Mapping form unicode codepoints to EUC-JP byte sequences:
 Unicode codepoint | EUC-JP | EUC-JIS-2004 | CP51932 | eucJP-ms
 ---|---|---|---|---
 U+005C(&#x5C;) | `5C`(&yen;) | `5C`(&yen;) | `5C`(&yen;) | `5C`(&yen;)
-U+00A5(&#xA5;) | Error | Error | Error | Error
-U+301C(&#x301C;) | `A1 C1` | `A1 C1` | Error | Error
-U+FF5E(&#xFF5E;) | Error | A2 B2 | `A1 C1` | `A1 C1`
+U+00A5(&#xA5;) | error | error | error | error
+U+301C(&#x301C;) | `A1 C1` | `A1 C1` | error | error
+U+FF5E(&#xFF5E;) | error | `A2 B2` | `A1 C1` | `A1 C1`
 
 Other codepoints were not checked.
 
@@ -374,8 +374,8 @@ Mapping form unicode codepoints to Shift_JIS byte sequences:
 Unicode codepoint | Shift_JIS | Windows-31J
 ---|---|---
 U+005C(&#x5C;) | `5C`(&yen;) | `5C`(&yen;)
-U+00A5(&#xA5;) | Error | Error
-U+301C(&#x301C;) | `81 60` | Error |
-U+FF5E(&#xFF5E;) | Error | `81 60`
+U+00A5(&#xA5;) | error | error
+U+301C(&#x301C;) | `81 60` | error |
+U+FF5E(&#xFF5E;) | error | `81 60`
 
 Other codepoints were not checked.
