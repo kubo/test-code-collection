@@ -8,6 +8,7 @@ PROGS = connect-by-Logon \
 	connect-by-Logon2 \
 	connect-by-ServerAttach-and-SessionBegin \
 	connect-by-SessionGet \
+	dln-load \
 
 all: $(PROGS)
 
@@ -22,6 +23,9 @@ connect-by-ServerAttach-and-SessionBegin: connect-main.o util.o connect-by-Serve
 
 connect-by-SessionGet: connect-main.o util.o connect-by-SessionGet.o
 	$(CC) -o $@ $^ $(LIBS)
+
+dln-load: dln-load.o
+	$(CC) -o $@ $^ -ldl
 
 connect-by-Logon.o: connect-by-Logon.c connect.h util.h
 connect-by-Logon2.o: connect-by-Logon2.c connect.h util.h
