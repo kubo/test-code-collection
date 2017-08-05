@@ -275,7 +275,7 @@ The forth column is the Oralce character set name got from the third column by O
 ## EUC-JP character sets (Japanese chracter set on Unix)
 
 There are four Oracle character set names whose IANA name is EUC-JP.
-One of them, 'JA16VMS', is ancient. The rests are 'JA16EUC', 'JA16EUCTILDE' and 'JA16EUCYEN'.
+One of them, JA16VMS, is ancient. The rests are JA16EUC, JA16EUCTILDE and JA16EUCYEN.
 
 Mapping form EUC-JP byte sequences to unicode codepoints:
 
@@ -325,14 +325,14 @@ and JA16SJISTILDE. However JA16SJISYEN is different.
 
 Unicode codepoints | JA16SJIS, JA16SJISTILDE | JA16SJISYEN
 ---|---|---
-U+00A1(&#xA1;) | 21(!) | FA 55(&#xFFE4;)
-U+00A6(&#xA6;) | 7C(\|) | FA 55(&#xFFE4;)
-U+00A9(&#xA9;) | 63(c) | ?
-U+00AA(&#xAA;) | 61(a) | ?
-U+00AB(&#xAB;) | 81 E1(&#xFF3F;) | ?
-U+00AD(&#xAD;) | 2D(-) | ?
-U+00AE(&#xAE;) | 52(R) | ?
-U+00AF(&#xAF;) | 81 50(&#xFFE3;) | ?
+U+00A1(&#xA1;) | `21`(!) | ?
+U+00A6(&#xA6;) | `7C`(\|) | `FA 55`(&#xFFE4;)
+U+00A9(&#xA9;) | `63`(c) | ?
+U+00AA(&#xAA;) | `61`(a) | ?
+U+00AB(&#xAB;) | `81 E1`(&#x226A;) | ?
+U+00AD(&#xAD;) | `2D`(-) | ?
+U+00AE(&#xAE;) | `52`(R) | ?
+U+00AF(&#xAF;) | `81 50`(&#xFFE3;) | ?
 ... | ... | ...
 
 ## Appendix EUC-JP and Shift_JIS mapping in ruby
@@ -344,8 +344,8 @@ Mapping form EUC-JP byte sequences to unicode codepoints:
 EUC-JP byte sequence | EUC-JP | EUC-JIS-2004 | CP51932 | eucJP-ms
 ---|---|---|---|---
 `5C`(&yen;) | U+005C(&#x5C;) | U+005C(&#x5C;) | U+005C(&#x5C;) | U+005C(&#x5C;)
-A1 C1 | U+301C(&#x301C;) | U+301C(&#x301C;) | U+FF5E(&#xFF5E;) | U+FF5E(&#xFF5E;)
-8F A2 B7 | U+007E(&#x007E) | Error | Error | U+FF5E(&#xFF5E;)
+`A1 C1` | U+301C(&#x301C;) | U+301C(&#x301C;) | U+FF5E(&#xFF5E;) | U+FF5E(&#xFF5E;)
+`8F A2 B7` | U+007E(&#x007E) | Error | Error | U+FF5E(&#xFF5E;)
 
 Other bytes sequences were not checked.
 
@@ -355,8 +355,8 @@ Unicode codepoint | EUC-JP | EUC-JIS-2004 | CP51932 | eucJP-ms
 ---|---|---|---|---
 U+005C(&#x5C;) | `5C`(&yen;) | `5C`(&yen;) | `5C`(&yen;) | `5C`(&yen;)
 U+00A5(&#xA5;) | Error | Error | Error | Error
-U+301C(&#x301C;) | A1 C1 | A1 C1 | Error | Error
-U+FF5E(&#xFF5E;) | Error | A2 B2 | A1 C1 | A1 C1
+U+301C(&#x301C;) | `A1 C1` | `A1 C1` | Error | Error
+U+FF5E(&#xFF5E;) | Error | A2 B2 | `A1 C1` | `A1 C1`
 
 Other codepoints were not checked.
 
