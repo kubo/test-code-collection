@@ -7,21 +7,21 @@ The forth column is the Oralce character set name got from the third column by O
 
   ID  |        Oracle name        |      IANA name     | IANA to Oracle
 ------|---------------------------|--------------------|----------------
-    1 | US7ASCII                  | US-ASCII           | :+1:
-    2 | WE8DEC                    | DEC-MCS            | :+1:
-    3 | WE8HP                     |                    |
-    4 | US8PC437                  | CP437              | :+1:
-    5 | WE8EBCDIC37               | CP037              | :+1:
-    6 | WE8EBCDIC500              | CP500              | :+1:
-    7 | WE8EBCDIC1140             | CP01140            | :+1:
-    8 | WE8EBCDIC285              | CP285              | :+1:
-    9 | WE8EBCDIC1146             | CP01146            | :+1:
-   10 | WE8PC850                  | CP850              | :+1:
-   11 | D7DEC                     | DIN_66003          | :+1:
-   12 | F7DEC                     | NF_Z_62-010_(1973) | :+1:
-   13 | S7DEC                     |                    |
-   14 | E7DEC                     | ES                 | :+1:
-   15 | SF7ASCII                  | SEN_850200_B       | :+1:
+   1  | US7ASCII                  | US-ASCII           | :+1:
+   2  | WE8DEC                    | DEC-MCS            | :+1:
+   3  | WE8HP                     |                    |
+   4  | US8PC437                  | CP437              | :+1:
+   5  | WE8EBCDIC37               | CP037              | :+1:
+   6  | WE8EBCDIC500              | CP500              | :+1:
+   7  | WE8EBCDIC1140             | CP01140            | :+1:
+   8  | WE8EBCDIC285              | CP285              | :+1:
+   9  | WE8EBCDIC1146             | CP01146            | :+1:
+   10 | WE8PC850                  | CP850              | :+1:
+   11 | D7DEC                     | DIN_66003          | :+1:
+   12 | F7DEC                     | NF_Z_62-010_(1973) | :+1:
+   13 | S7DEC                     |                    |
+   14 | E7DEC                     | ES                 | :+1:
+   15 | SF7ASCII                  | SEN_850200_B       | :+1:
    16 | NDK7DEC                   |                    |
    17 | I7DEC                     | IT                 | :+1:
    18 | NL7DEC                    |                    |
@@ -326,13 +326,13 @@ and JA16SJISTILDE. However JA16SJISYEN is different.
 Unicode codepoints | JA16SJIS, JA16SJISTILDE | JA16SJISYEN
 ---|---|---
 U+00A1(&#xA1;) | 21(!) | FA 55(&#xFFE4;)
-U+00A6(&#xA6;) | 7C(|) | FA 55(&#xFFE4;)
+U+00A6(&#xA6;) | 7C(\|) | FA 55(&#xFFE4;)
 U+00A9(&#xA9;) | 63(c) | ?
 U+00AA(&#xAA;) | 61(a) | ?
-U+00AB(&#xAB;) | 81 E1(&#xFF3F) | ?
+U+00AB(&#xAB;) | 81 E1(&#xFF3F;) | ?
 U+00AD(&#xAD;) | 2D(-) | ?
 U+00AE(&#xAE;) | 52(R) | ?
-U+00AF(&#xAF;) | 81 50(&#xFFE3) | ?
+U+00AF(&#xAF;) | 81 50(&#xFFE3;) | ?
 ... | ... | ...
 
 ## Appendix EUC-JP and Shift_JIS mapping in ruby
@@ -352,7 +352,7 @@ Other bytes sequences were not checked.
 Mapping form unicode codepoints to EUC-JP byte sequences:
 
 Unicode codepoint | EUC-JP | EUC-JIS-2004 | CP51932 | eucJP-ms
----|---|---|---
+---|---|---|---|---
 U+005C(&#x5C;) | `5C`(&yen;) | `5C`(&yen;) | `5C`(&yen;) | `5C`(&yen;)
 U+00A5(&#xA5;) | Error | Error | Error | Error
 U+301C(&#x301C;) | A1 C1 | A1 C1 | Error | Error
