@@ -4,3 +4,5 @@
 /oracle/connect-by-Logon2
 /oracle/connect-by-ServerAttach-and-SessionBegin
 /oracle/connect-by-SessionGet
+/oracle/dln-load
+/oracle/charset-list

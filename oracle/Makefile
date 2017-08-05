@@ -9,6 +9,7 @@ PROGS = connect-by-Logon \
 	connect-by-ServerAttach-and-SessionBegin \
 	connect-by-SessionGet \
 	dln-load \
+	charset-list \
 
 all: $(PROGS)
 
@@ -26,6 +27,9 @@ connect-by-SessionGet: connect-main.o util.o connect-by-SessionGet.o
 
 dln-load: dln-load.o
 	$(CC) -o $@ $^ -ldl
+
+charset-list: charset-list.o util.o
+	$(CC) -o $@ $^ $(LIBS)
 
 connect-by-Logon.o: connect-by-Logon.c connect.h util.h
 connect-by-Logon2.o: connect-by-Logon2.c connect.h util.h
