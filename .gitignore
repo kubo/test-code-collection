@@ -6,3 +6,4 @@
 /oracle/connect-by-SessionGet
 /oracle/dln-load
 /oracle/charset-list
+/unix/get_thread_id
