@@ -21,16 +21,27 @@
 #
 class Base
   CONST = 'constant of class Base'
+  CONST2 = 'constant of class Base'
   @@class_var = 'class variable of class Base'
+  @class_instance_var = 'class instance variable of class Base'
+  @class_instance_var2 = 'class instance variable of class Base'
 
   def print_class_values
     puts "  CONST => #{CONST}"
     puts "  @@class_var => #{@@class_var}"
+    puts "  @class_instance_var => #{self.class.instance_variable_get(:@class_instance_var)}"
+    puts "  @class_instance_var2 => #{self.class.instance_variable_get(:@class_instance_var2)}"
     puts "  self.class.const_get(:CONST) => #{self.class.const_get(:CONST)}"
+    puts "  self.class.const_get(:CONST2) => #{self.class.const_get(:CONST2)}"
     puts "  get_const => #{get_const}"
+    puts "  get_const2 => #{get_const2}"
   end
 
   def get_const
+    CONST
+  end
+
+  def get_const2
     CONST
   end
 end
@@ -38,6 +49,7 @@ end
 class Sub < Base
   CONST = 'constant of class Sub'
   @@class_var = 'class variable of class Sub'
+  @class_instance_var = 'class instance variable of class Sub'
 
   def get_const
     CONST
